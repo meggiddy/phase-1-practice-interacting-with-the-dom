@@ -9,10 +9,14 @@ const likeList = document.getElementById("likes");
 let count = 0;
 
 //counter code
-const counterInterval = setInterval(() => {
-  count++;
-  counterElement.innerHTML = count;
-}, 1000);
+let counterInterval = null;
+const startCounter = () => {
+  counterInterval = setInterval(() => {
+    count++;
+    counterElement.innerHTML = count;
+  }, 1000);
+};
+startCounter()
 //manual increment
 increase.addEventListener("click", () => {
   count++;
@@ -25,18 +29,25 @@ decrease.addEventListener("click", () => {
 });
 //like button
 like.addEventListener("click", () => {
-    let likeCount = 0;
-    likeCount++;
-    const likedItem = document.createElement("li");
-    let likes =`${counterElement.innerHTML} has been liked ${likeCount} times`;
-    likedItem.innerHTML = likes;
-    likeList.appendChild(likedItem);
+  let likeCount = 0;
+  likeCount++;
+  const likedItem = document.createElement("li");
+  let likes = `${counterElement.innerHTML} has been liked ${likeCount} times`;
+  likedItem.innerHTML = likes;
+  likeList.appendChild(likedItem);
 });
 //pause
 let isPlaying = false;
+pause.innerHTML = "Pause";
 pause.addEventListener("click", () => {
-    if (isPlaying) {
-        clearInterval(counterInterval);
-        pause.textContent = false;
-        isPlaying = true;}
+    
+  if (isPlaying) {
+    clearInterval(counterInterval);
+    pause.textContent = "Resume";
+    isPlaying = false;
+  } else {
+    //startCounter(); makes it go faster
+    pause.textContent = "Pause";
+    isPlaying = true;
+  }
 });
